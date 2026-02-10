@@ -1,0 +1,7 @@
+Events: 55964
+T (seconds): 86384.259
+mu: 0.2926048417
+alpha: 5153.3652075730
+beta: 6751.7475742446
+branching_ratio(alpha/beta): 0.763264
+half_life_seconds: 0.000
