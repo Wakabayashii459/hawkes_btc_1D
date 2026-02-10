@@ -2,7 +2,7 @@
 
 Repository to reproduce pipeline analyzing BTCUSDT cross-venue premiums by Hawkes model on November 5th 2024 under clustered order flow (Binance, Bybit, and Gate).
 
-The methodology, results, figures, and trading interpretation are provided in the PDF report.
+The methodology, results, figures, and interpretation are provided in the PDF report.
 
 ---
 
@@ -92,5 +92,6 @@ python src/naive_rolling_comparison.py
 ```
 data/processed/
 ```
+
 
 
