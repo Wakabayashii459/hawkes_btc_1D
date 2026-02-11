@@ -11,7 +11,6 @@ The sub-questions are:
 - **Is it a false mean reversion signals?**
 - **Is it possible that trader run over during aggressive flow?**
 - **Is this a real price dislocation or transient?**
-- **Why would the backtested strategy not worked live?**
 
 The core problem is that a premium does not tell you *why* the price moved. To answer, I structured the project around three topics:
 
@@ -25,7 +24,7 @@ The core problem is that a premium does not tell you *why* the price moved. To a
 
 #### 1. Same schema trade data
 
-Normalization of BTCUSDT trades from Binance ([Link](https://data.binance.vision/?prefix=data/futures/um/daily/trades/BTCUSDT/)), Bybit  ([Link](https://www.bybit.com/derivatives/en/history-data)), and Gate ([Link](https://www.gate.com/developer/historical_quotes)) (It comes as monthly, extracted the 5th of November 2024) into a unified UTC-aligned schema **(Please don't forget to put the files in data/raw).** 
+Normalization of BTCUSDT trades from Binance ([Link](https://data.binance.vision/?prefix=data/futures/um/daily/trades/BTCUSDT/)), Bybit  ([Link](https://www.bybit.com/derivatives/en/history-data)), and Gate ([Link](https://www.gate.com/developer/historical_quotes)) (It comes as monthly, extracted the 5th of November 2024) UTC-aligned schema **(Please don't forget to put the files in data/raw).** 
 ```
 timestamp, venue, price, size, side
 ```
@@ -34,8 +33,6 @@ timestamp, venue, price, size, side
 
 #### 2. Trade size distributions
 
-Observations of examination of trade size distributions per venue and in aggregate.
-
 Summary statistics (BTC size):
 
 - Binance: median 0.007, 99% 0.94, 99.9% 2.95  
@@ -43,7 +40,7 @@ Summary statistics (BTC size):
 - Gate: median 0.0008, 99% 0.39, 99.9% 1.03  
 - Pooled: median 0.008, 99% 0.92, 99.9% 2.84 
 
-Two things stand out immediately:
+Two things stand out:
 
 - Trade sizes exhibit heavy tails across three venue.
 - Binance dominates large block trades.
@@ -66,7 +63,7 @@ Intuitively, this overlaps with the idea of rolling averages failing (It is not 
 ##### Why median reference (robust) helps?
 
 Instead of being open contamination during shocks with the naive approaches, I used a robust reference price per second as the **cross-venue median**.
-By that, if the one venue spikes (or lag) the refernce is not dragged by it, and refernce remins stable during transient dislocations
+By that, if the one venue spikes (or lag) the reference is not dragged by it, and reference remains stable during transient dislocation.
 
 
 ### Premium definition (log units)
@@ -99,7 +96,7 @@ I benchmark the raw 1-second premium against 30s rolling mean and 30s EWMA aroun
 
 Interpretation:
 
-- As it is observed, naive ones lag and react after the move. Therefore, they understate the short-term deviation.
+- As it is observed, naive average ones lag and react after the move. Therefore, they understate the short-term deviation.
 - This illustrates during aggressive flow they are unreliable, while stressed market is driven by large/discrete order flow shock.
 
 Thus, introducing a flow regime signal such as Hawkes justifiable.
@@ -255,6 +252,7 @@ python src/naive_rolling_comparison.py
 ```
 data/processed/
 ```
+
 
 
 
