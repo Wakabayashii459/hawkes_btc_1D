@@ -93,7 +93,7 @@ Log premium decision is based on its approxiamtion is “bps” for small moves,
 
 I benchmark the raw 1-second premium against 30s rolling mean and 30s EWMA around **15:30:27 UTC**. The reason behind this is it was one of the highest Hawkes-intensity timestamps of the day. 
 
-![Naive rolling comparison across venues](graph.png)
+![Naive rolling comparison across venues](shock_window.png)
 
 **Figure 1:** Raw 1-second log premium versus rolling mean and EWMA for Binance, Bybit, and Gate during a high-intensity window (±30s around 15:30:27 UTC).
 
@@ -255,6 +255,7 @@ python src/naive_rolling_comparison.py
 ```
 data/processed/
 ```
+
 
 
 
